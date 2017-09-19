@@ -1,6 +1,6 @@
 # Microsoft Embedded Social
 ## C# Library for Server API
-This is a library for accessing the Microsoft Embedded Social API in your C# code.
+This is a library for interacting with the Microsoft Embedded Social API in your C# code.
 
 By using this code, you agree to the [Developer Code of Conduct](DeveloperCodeOfConduct.md), and the [License Terms](LICENSE).
 
