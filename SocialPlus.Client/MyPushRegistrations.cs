@@ -134,7 +134,7 @@ namespace SocialPlus.Client
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.7/users/me/push_registrations/{platform}/{registrationId}").ToString();
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.8/users/me/push_registrations/{platform}/{registrationId}").ToString();
             _url = _url.Replace("{platform}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(platform, this.Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{registrationId}", Uri.EscapeDataString(registrationId));
             // Create HTTP transport objects
@@ -295,7 +295,7 @@ namespace SocialPlus.Client
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.7/users/me/push_registrations/{platform}/{registrationId}").ToString();
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.8/users/me/push_registrations/{platform}/{registrationId}").ToString();
             _url = _url.Replace("{platform}", Uri.EscapeDataString(SafeJsonConvert.SerializeObject(platform, this.Client.SerializationSettings).Trim('"')));
             _url = _url.Replace("{registrationId}", Uri.EscapeDataString(registrationId));
             // Create HTTP transport objects

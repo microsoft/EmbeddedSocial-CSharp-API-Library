@@ -12,24 +12,25 @@ namespace SocialPlus.Client.Models
     using Microsoft.Rest.Serialization;
 
     /// <summary>
-    /// Response from get builds current
+    /// Response from get build info
     /// </summary>
-    public partial class BuildsCurrentResponse
+    public partial class GetBuildInfoResponse
     {
         /// <summary>
-        /// Initializes a new instance of the BuildsCurrentResponse class.
+        /// Initializes a new instance of the GetBuildInfoResponse class.
         /// </summary>
-        public BuildsCurrentResponse() { }
+        public GetBuildInfoResponse() { }
 
         /// <summary>
-        /// Initializes a new instance of the BuildsCurrentResponse class.
+        /// Initializes a new instance of the GetBuildInfoResponse class.
         /// </summary>
-        public BuildsCurrentResponse(string dateAndTime = default(string), string commitHash = default(string), string hostname = default(string), string serviceApiVersion = default(string), IList<string> dirtyFiles = default(IList<string>))
+        public GetBuildInfoResponse(string dateAndTime = default(string), string commitHash = default(string), string hostname = default(string), string branchName = default(string), string tag = default(string), IList<string> dirtyFiles = default(IList<string>))
         {
             DateAndTime = dateAndTime;
             CommitHash = commitHash;
             Hostname = hostname;
-            ServiceApiVersion = serviceApiVersion;
+            BranchName = branchName;
+            Tag = tag;
             DirtyFiles = dirtyFiles;
         }
 
@@ -40,8 +41,7 @@ namespace SocialPlus.Client.Models
         public string DateAndTime { get; set; }
 
         /// <summary>
-        /// Gets or sets the Git commit hash that represents the current
-        /// checkout
+        /// Gets or sets the Git commit hash that represents the git head
         /// </summary>
         [JsonProperty(PropertyName = "commitHash")]
         public string CommitHash { get; set; }
@@ -53,10 +53,16 @@ namespace SocialPlus.Client.Models
         public string Hostname { get; set; }
 
         /// <summary>
-        /// Gets or sets service api version number
+        /// Gets or sets the name of the branch the code was built from
         /// </summary>
-        [JsonProperty(PropertyName = "serviceApiVersion")]
-        public string ServiceApiVersion { get; set; }
+        [JsonProperty(PropertyName = "branchName")]
+        public string BranchName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the tag associated with the commit hash (if any)
+        /// </summary>
+        [JsonProperty(PropertyName = "tag")]
+        public string Tag { get; set; }
 
         /// <summary>
         /// Gets or sets the list of files that were not committed at build

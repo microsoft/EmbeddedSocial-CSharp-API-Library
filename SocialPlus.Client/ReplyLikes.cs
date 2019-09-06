@@ -108,7 +108,7 @@ namespace SocialPlus.Client
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.7/replies/{replyHandle}/likes").ToString();
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.8/replies/{replyHandle}/likes").ToString();
             _url = _url.Replace("{replyHandle}", Uri.EscapeDataString(replyHandle));
             List<string> _queryParameters = new List<string>();
             if (cursor != null)
@@ -267,7 +267,7 @@ namespace SocialPlus.Client
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.7/replies/{replyHandle}/likes").ToString();
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.8/replies/{replyHandle}/likes").ToString();
             _url = _url.Replace("{replyHandle}", Uri.EscapeDataString(replyHandle));
             // Create HTTP transport objects
             HttpRequestMessage _httpRequest = new HttpRequestMessage();
@@ -413,7 +413,7 @@ namespace SocialPlus.Client
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.7/replies/{replyHandle}/likes/me").ToString();
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.8/replies/{replyHandle}/likes/me").ToString();
             _url = _url.Replace("{replyHandle}", Uri.EscapeDataString(replyHandle));
             // Create HTTP transport objects
             HttpRequestMessage _httpRequest = new HttpRequestMessage();

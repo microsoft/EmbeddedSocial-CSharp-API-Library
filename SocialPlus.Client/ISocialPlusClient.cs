@@ -41,11 +41,6 @@ namespace SocialPlus.Client
         IBlobs Blobs { get; }
 
         /// <summary>
-        /// Gets the IBuilds.
-        /// </summary>
-        IBuilds Builds { get; }
-
-        /// <summary>
         /// Gets the IComments.
         /// </summary>
         IComments Comments { get; }
@@ -54,6 +49,11 @@ namespace SocialPlus.Client
         /// Gets the ITopicComments.
         /// </summary>
         ITopicComments TopicComments { get; }
+
+        /// <summary>
+        /// Gets the IConfig.
+        /// </summary>
+        IConfig Config { get; }
 
         /// <summary>
         /// Gets the IHashtags.

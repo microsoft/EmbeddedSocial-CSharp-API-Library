@@ -108,7 +108,7 @@ namespace SocialPlus.Client
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.7/comments/{commentHandle}/replies").ToString();
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.8/comments/{commentHandle}/replies").ToString();
             _url = _url.Replace("{commentHandle}", Uri.EscapeDataString(commentHandle));
             List<string> _queryParameters = new List<string>();
             if (cursor != null)
@@ -279,7 +279,7 @@ namespace SocialPlus.Client
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.7/comments/{commentHandle}/replies").ToString();
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.8/comments/{commentHandle}/replies").ToString();
             _url = _url.Replace("{commentHandle}", Uri.EscapeDataString(commentHandle));
             // Create HTTP transport objects
             HttpRequestMessage _httpRequest = new HttpRequestMessage();

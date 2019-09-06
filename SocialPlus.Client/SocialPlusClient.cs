@@ -47,11 +47,6 @@ namespace SocialPlus.Client
         public virtual IBlobs Blobs { get; private set; }
 
         /// <summary>
-        /// Gets the IBuilds.
-        /// </summary>
-        public virtual IBuilds Builds { get; private set; }
-
-        /// <summary>
         /// Gets the IComments.
         /// </summary>
         public virtual IComments Comments { get; private set; }
@@ -60,6 +55,11 @@ namespace SocialPlus.Client
         /// Gets the ITopicComments.
         /// </summary>
         public virtual ITopicComments TopicComments { get; private set; }
+
+        /// <summary>
+        /// Gets the IConfig.
+        /// </summary>
+        public virtual IConfig Config { get; private set; }
 
         /// <summary>
         /// Gets the IHashtags.
@@ -290,9 +290,9 @@ namespace SocialPlus.Client
         private void Initialize()
         {
             this.Blobs = new Blobs(this);
-            this.Builds = new Builds(this);
             this.Comments = new Comments(this);
             this.TopicComments = new TopicComments(this);
+            this.Config = new Config(this);
             this.Hashtags = new Hashtags(this);
             this.Images = new Images(this);
             this.TopicLikes = new TopicLikes(this);

@@ -108,7 +108,7 @@ namespace SocialPlus.Client
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.7/users/{userHandle}/topics").ToString();
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.8/users/{userHandle}/topics").ToString();
             _url = _url.Replace("{userHandle}", Uri.EscapeDataString(userHandle));
             List<string> _queryParameters = new List<string>();
             if (cursor != null)
@@ -275,7 +275,7 @@ namespace SocialPlus.Client
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.7/users/{userHandle}/topics/popular").ToString();
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.8/users/{userHandle}/topics/popular").ToString();
             _url = _url.Replace("{userHandle}", Uri.EscapeDataString(userHandle));
             List<string> _queryParameters = new List<string>();
             if (cursor != null)

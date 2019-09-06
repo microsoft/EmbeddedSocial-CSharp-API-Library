@@ -20,17 +20,17 @@ namespace SocialPlus.Client
     using Models;
 
     /// <summary>
-    /// Replies operations.
+    /// Config operations.
     /// </summary>
-    public partial class Replies : IServiceOperations<SocialPlusClient>, IReplies
+    public partial class Config : IServiceOperations<SocialPlusClient>, IConfig
     {
         /// <summary>
-        /// Initializes a new instance of the Replies class.
+        /// Initializes a new instance of the Config class.
         /// </summary>
         /// <param name='client'>
         /// Reference to the service client.
         /// </param>
-        public Replies(SocialPlusClient client)
+        public Config(SocialPlusClient client)
         {
             if (client == null) 
             {
@@ -45,28 +45,8 @@ namespace SocialPlus.Client
         public SocialPlusClient Client { get; private set; }
 
         /// <summary>
-        /// Get reply
+        /// Get build information
         /// </summary>
-        /// <param name='replyHandle'>
-        /// Reply handle
-        /// </param>
-        /// <param name='authorization'>
-        /// Format is: "Scheme CredentialsList". Possible values are:
-        /// 
-        /// - Anon AK=AppKey
-        /// 
-        /// - SocialPlus TK=SessionToken
-        /// 
-        /// - Facebook AK=AppKey|TK=AccessToken
-        /// 
-        /// - Google AK=AppKey|TK=AccessToken
-        /// 
-        /// - Twitter AK=AppKey|RT=RequestToken|TK=AccessToken
-        /// 
-        /// - Microsoft AK=AppKey|TK=AccessToken
-        /// 
-        /// - AADS2S AK=AppKey|[UH=UserHandle]|TK=AADToken
-        /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>
@@ -76,16 +56,8 @@ namespace SocialPlus.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<ReplyView>> GetReplyWithHttpMessagesAsync(string replyHandle, string authorization, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<GetBuildInfoResponse>> GetBuildInfoWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (replyHandle == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "replyHandle");
-            }
-            if (authorization == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "authorization");
-            }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -93,29 +65,18 @@ namespace SocialPlus.Client
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("replyHandle", replyHandle);
-                tracingParameters.Add("authorization", authorization);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "GetReply", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "GetBuildInfo", tracingParameters);
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.8/replies/{replyHandle}").ToString();
-            _url = _url.Replace("{replyHandle}", Uri.EscapeDataString(replyHandle));
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.8/config/build_info").ToString();
             // Create HTTP transport objects
             HttpRequestMessage _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
             _httpRequest.Method = new HttpMethod("GET");
             _httpRequest.RequestUri = new Uri(_url);
             // Set Headers
-            if (authorization != null)
-            {
-                if (_httpRequest.Headers.Contains("Authorization"))
-                {
-                    _httpRequest.Headers.Remove("Authorization");
-                }
-                _httpRequest.Headers.TryAddWithoutValidation("Authorization", authorization);
-            }
             if (customHeaders != null)
             {
                 foreach(var _header in customHeaders)
@@ -144,7 +105,7 @@ namespace SocialPlus.Client
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 200 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 404 && (int)_statusCode != 500)
+            if ((int)_statusCode != 200)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -162,7 +123,7 @@ namespace SocialPlus.Client
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<ReplyView>();
+            var _result = new HttpOperationResponse<GetBuildInfoResponse>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
@@ -171,7 +132,7 @@ namespace SocialPlus.Client
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<ReplyView>(_responseContent, this.Client.DeserializationSettings);
+                    _result.Body = SafeJsonConvert.DeserializeObject<GetBuildInfoResponse>(_responseContent, this.Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -191,28 +152,8 @@ namespace SocialPlus.Client
         }
 
         /// <summary>
-        /// Delete reply
+        /// Get service information
         /// </summary>
-        /// <param name='replyHandle'>
-        /// Reply handle
-        /// </param>
-        /// <param name='authorization'>
-        /// Format is: "Scheme CredentialsList". Possible values are:
-        /// 
-        /// - Anon AK=AppKey
-        /// 
-        /// - SocialPlus TK=SessionToken
-        /// 
-        /// - Facebook AK=AppKey|TK=AccessToken
-        /// 
-        /// - Google AK=AppKey|TK=AccessToken
-        /// 
-        /// - Twitter AK=AppKey|RT=RequestToken|TK=AccessToken
-        /// 
-        /// - Microsoft AK=AppKey|TK=AccessToken
-        /// 
-        /// - AADS2S AK=AppKey|[UH=UserHandle]|TK=AADToken
-        /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>
@@ -222,16 +163,8 @@ namespace SocialPlus.Client
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<HttpOperationResponse<object>> DeleteReplyWithHttpMessagesAsync(string replyHandle, string authorization, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<HttpOperationResponse<GetServiceInfoResponse>> GetServiceInfoWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (replyHandle == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "replyHandle");
-            }
-            if (authorization == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "authorization");
-            }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -239,29 +172,18 @@ namespace SocialPlus.Client
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("replyHandle", replyHandle);
-                tracingParameters.Add("authorization", authorization);
                 tracingParameters.Add("cancellationToken", cancellationToken);
-                ServiceClientTracing.Enter(_invocationId, this, "DeleteReply", tracingParameters);
+                ServiceClientTracing.Enter(_invocationId, this, "GetServiceInfo", tracingParameters);
             }
             // Construct URL
             var _baseUrl = this.Client.BaseUri.AbsoluteUri;
-            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.8/replies/{replyHandle}").ToString();
-            _url = _url.Replace("{replyHandle}", Uri.EscapeDataString(replyHandle));
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.8/config/service_info").ToString();
             // Create HTTP transport objects
             HttpRequestMessage _httpRequest = new HttpRequestMessage();
             HttpResponseMessage _httpResponse = null;
-            _httpRequest.Method = new HttpMethod("DELETE");
+            _httpRequest.Method = new HttpMethod("GET");
             _httpRequest.RequestUri = new Uri(_url);
             // Set Headers
-            if (authorization != null)
-            {
-                if (_httpRequest.Headers.Contains("Authorization"))
-                {
-                    _httpRequest.Headers.Remove("Authorization");
-                }
-                _httpRequest.Headers.TryAddWithoutValidation("Authorization", authorization);
-            }
             if (customHeaders != null)
             {
                 foreach(var _header in customHeaders)
@@ -290,7 +212,7 @@ namespace SocialPlus.Client
             HttpStatusCode _statusCode = _httpResponse.StatusCode;
             cancellationToken.ThrowIfCancellationRequested();
             string _responseContent = null;
-            if ((int)_statusCode != 204 && (int)_statusCode != 400 && (int)_statusCode != 401 && (int)_statusCode != 404 && (int)_statusCode != 500)
+            if ((int)_statusCode != 200)
             {
                 var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -308,16 +230,159 @@ namespace SocialPlus.Client
                 throw ex;
             }
             // Create Result
-            var _result = new HttpOperationResponse<object>();
+            var _result = new HttpOperationResponse<GetServiceInfoResponse>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             // Deserialize Response
-            if ((int)_statusCode == 204)
+            if ((int)_statusCode == 200)
             {
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = SafeJsonConvert.DeserializeObject<object>(_responseContent, this.Client.DeserializationSettings);
+                    _result.Body = SafeJsonConvert.DeserializeObject<GetServiceInfoResponse>(_responseContent, this.Client.DeserializationSettings);
+                }
+                catch (JsonException ex)
+                {
+                    _httpRequest.Dispose();
+                    if (_httpResponse != null)
+                    {
+                        _httpResponse.Dispose();
+                    }
+                    throw new SerializationException("Unable to deserialize the response.", _responseContent, ex);
+                }
+            }
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.Exit(_invocationId, _result);
+            }
+            return _result;
+        }
+
+        /// <summary>
+        /// Get the configuration of a client for a given client name.
+        /// </summary>
+        /// Applications can use client names to lookup client configurations. The
+        /// client configuration contains two fields:
+        /// ServerSideAppKey and ClientConfigJson. The intended usage of
+        /// ServerSideAppKey is described below, and
+        /// ClientConfigJson provides a container for any other
+        /// configuration that developers want to avoid hard-coding into their apps.
+        /// 
+        /// Although we do not require it, we recommend that applications
+        /// split their app keys into a client-side and server-side component.
+        /// To lookup a particular split app key, you must provide the
+        /// client name associated with that app key.
+        /// Examples:
+        /// 1. If the application name is "Starbucks", the client name
+        /// could be "Starbucks:1.0".
+        /// 2. When multiple app keys are split, each server-side
+        /// component of the app keys must be registered
+        /// under different client names, such as "Starbucks:USA:1.0"
+        /// and "Starbucks:EU:1.0", or "Starbucks:1.0" and "Starbucks:2.0".
+        /// <param name='developerId'>
+        /// developer id
+        /// </param>
+        /// <param name='clientName'>
+        /// client name
+        /// </param>
+        /// <param name='customHeaders'>
+        /// Headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <return>
+        /// A response object containing the response body and response headers.
+        /// </return>
+        public async Task<HttpOperationResponse<GetClientConfigResponse>> GetClientConfigWithHttpMessagesAsync(string developerId, string clientName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            if (developerId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "developerId");
+            }
+            if (clientName == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "clientName");
+            }
+            // Tracing
+            bool _shouldTrace = ServiceClientTracing.IsEnabled;
+            string _invocationId = null;
+            if (_shouldTrace)
+            {
+                _invocationId = ServiceClientTracing.NextInvocationId.ToString();
+                Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
+                tracingParameters.Add("developerId", developerId);
+                tracingParameters.Add("clientName", clientName);
+                tracingParameters.Add("cancellationToken", cancellationToken);
+                ServiceClientTracing.Enter(_invocationId, this, "GetClientConfig", tracingParameters);
+            }
+            // Construct URL
+            var _baseUrl = this.Client.BaseUri.AbsoluteUri;
+            var _url = new Uri(new Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "v0.8/config/client_config/{developerId}/{clientName}").ToString();
+            _url = _url.Replace("{developerId}", Uri.EscapeDataString(developerId));
+            _url = _url.Replace("{clientName}", Uri.EscapeDataString(clientName));
+            // Create HTTP transport objects
+            HttpRequestMessage _httpRequest = new HttpRequestMessage();
+            HttpResponseMessage _httpResponse = null;
+            _httpRequest.Method = new HttpMethod("GET");
+            _httpRequest.RequestUri = new Uri(_url);
+            // Set Headers
+            if (customHeaders != null)
+            {
+                foreach(var _header in customHeaders)
+                {
+                    if (_httpRequest.Headers.Contains(_header.Key))
+                    {
+                        _httpRequest.Headers.Remove(_header.Key);
+                    }
+                    _httpRequest.Headers.TryAddWithoutValidation(_header.Key, _header.Value);
+                }
+            }
+
+            // Serialize Request
+            string _requestContent = null;
+            // Send Request
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.SendRequest(_invocationId, _httpRequest);
+            }
+            cancellationToken.ThrowIfCancellationRequested();
+            _httpResponse = await this.Client.HttpClient.SendAsync(_httpRequest, cancellationToken).ConfigureAwait(false);
+            if (_shouldTrace)
+            {
+                ServiceClientTracing.ReceiveResponse(_invocationId, _httpResponse);
+            }
+            HttpStatusCode _statusCode = _httpResponse.StatusCode;
+            cancellationToken.ThrowIfCancellationRequested();
+            string _responseContent = null;
+            if ((int)_statusCode != 200 && (int)_statusCode != 404)
+            {
+                var ex = new HttpOperationException(string.Format("Operation returned an invalid status code '{0}'", _statusCode));
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                ex.Request = new HttpRequestMessageWrapper(_httpRequest, _requestContent);
+                ex.Response = new HttpResponseMessageWrapper(_httpResponse, _responseContent);
+                if (_shouldTrace)
+                {
+                    ServiceClientTracing.Error(_invocationId, ex);
+                }
+                _httpRequest.Dispose();
+                if (_httpResponse != null)
+                {
+                    _httpResponse.Dispose();
+                }
+                throw ex;
+            }
+            // Create Result
+            var _result = new HttpOperationResponse<GetClientConfigResponse>();
+            _result.Request = _httpRequest;
+            _result.Response = _httpResponse;
+            // Deserialize Response
+            if ((int)_statusCode == 200)
+            {
+                _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    _result.Body = SafeJsonConvert.DeserializeObject<GetClientConfigResponse>(_responseContent, this.Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
